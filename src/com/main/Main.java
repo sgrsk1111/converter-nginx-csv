@@ -1,14 +1,22 @@
 package src.com.main;
 
 
-//сначала проложить путь к файлу который нужно взять
-// далее добавить возможно проверку - блок трай кетч
-//прописать код который будет обрабатывать файл
-//прописать код который будет создать новый файл в другую папку
-//протестировать
-//решить вопрос, как файлы для конвертации могут быть добавлены
+import java.io.File;
+
+
 public class Main {
     public static void main(String[] args) {
+
+        File test = new File("/home/tatiana/Desktop/convert-nginx-csv/src/ngnixtest/nginx.log");
+
+        try {
+            boolean fileInDirectory = test.isFile();
+            if (fileInDirectory == false)
+                System.out.println("File not found");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
 
     }
 }
