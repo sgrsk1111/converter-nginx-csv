@@ -9,33 +9,43 @@ public class Main {
     public static void main(String[] args) {
 
         File test = new File("/home/tatiana/Desktop/converter-nginx-csv/src/com/nginxtest/nginx.log");
-        File newFile = new File("/home/tatiana/Desktop/converter-nginx-csv/src/com/result");
+        File newFile = new File("/home/tatiana/Desktop/converter-nginx-csv/src/com/result/result.csv");
 
         BufferedReader buff;
+        BufferedWriter buffWr;
 
         try {
 
+            newFile.createNewFile();
+
             buff = new BufferedReader(new FileReader(test));
+            buffWr = new BufferedWriter(new FileWriter(newFile));
 
-            String line;
-            while ((line = buff.readLine()) != null){
+            String line = "";
+            String info;
 
-                String [] headers = line.split("\\|");
-                StringBuilder newB = new StringBuilder();
+            if ((line = buff.readLine()) != null){
+
+                String [] headers = line.split("\\s");
+                StringBuilder newB = new StringBuilder("");
 
                 for(String header : headers) {
-                    newB.append(header.split("=")[1].trim());
+                    newB.append(header.split("=")[0].trim());
                     newB.append("|");
                     System.out.println(header);
                 }
+                info = newB.toString();
 
+                while ((line = buff.readLine()) != null){
+                    buffWr.write(info+line);
+                    buffWr.newLine();
+                }
             }
 
-            if ((line = buff.readLine()) == null) buff.close();
-            /*
-            newFile.mkdir();
-            newFile.createNewFile();
-             */
+            if ((line = buff.readLine()) == null) {
+                buff.close();
+                buffWr.close();
+            }
 
         } catch (IOException e){
             System.out.println(e.getMessage());
