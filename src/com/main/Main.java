@@ -2,7 +2,6 @@ package src.com.main;
 
 
 import java.io.*;
-import java.util.Arrays;
 
 
 public class Main {
@@ -30,14 +29,13 @@ public class Main {
                 StringBuilder newB = new StringBuilder("");
 
                 for(String header : headers) {
-                    newB.append(header.split("=")[0].trim());
+                    newB.append(header.split("=")[0].trim().replaceAll("\\s",""));
                     newB.append("|");
-                    System.out.println(header);
                 }
                 info = newB.toString();
 
                 while ((line = buff.readLine()) != null){
-                    buffWr.write(info+line);
+                    buffWr.write(info);
                     buffWr.newLine();
                 }
             }
